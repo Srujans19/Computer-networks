@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+public class BusTicketBookingSystem {
+
+    private int totalSeats;
+    private int bookedSeats;
+    private Scanner scanner;
+
+    public BusTicketBookingSystem(int totalSeats) {
+        this.totalSeats = totalSeats;
+        this.bookedSeats = 0;
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void startBooking() {
+        while (true) {
+            System.out.println("Welcome to the Bus Ticket Booking System");
+            System.out.println("Please choose an option:");
+            System.out.println("1. Book a ticket");
+            System.out.println("2. Cancel a ticket");
+            System.out.println("3. Check available seats");
+            System.out.println("4. Exit");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    bookTicket();
+                    break;
+                case 2:
+                    cancelTicket();
+                    break;
+                case 3:
+                    checkAvailableSeats();
+                    break;
+                case 4:
+                    System.out.println("Thank you for using the Bus Ticket Booking System.");
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    private void bookTicket() {
+        if (bookedSeats < totalSeats) {
+            bookedSeats++;
+            System.out.println("Ticket booked successfully. Your seat number is " + bookedSeats);
+        } else {
+            System.out.println("Sorry, no seats available.");
+        }
+    }
+
+    private void cancelTicket() {
+        if (bookedSeats > 0) {
+            System.out.println("Please enter your seat number:");
+            int seatNumber = scanner.nextInt();
+            if (seatNumber >= 1 && seatNumber <= bookedSeats) {
+                bookedSeats--;
+                System.out.println("Ticket cancelled successfully for seat number " + seatNumber);
+            } else {
+                System.out.println("Invalid seat number.");
+            }
+        } else {
+            System.out.println("There are no booked seats to cancel.");
+        }
+    }
+
+    private void checkAvailableSeats() {
+        int availableSeats = totalSeats - bookedSeats;
+        System.out.println("Available seats: " + availableSeats);
+    }
+
+    public static void main(String[] args) {
+        BusTicketBookingSystem bookingSystem = new BusTicketBookingSystem(50);
+        bookingSystem.startBooking();
+    }
+}

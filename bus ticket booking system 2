@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+public class BusTicketBookingSystem {
+
+    private int totalSeats;
+    private int bookedSeats;
+    private Scanner scanner;
+
+    private static final String ADMIN_PASSWORD = "admin123"; // Store securely, use encryption or hashing
+
+    public BusTicketBookingSystem(int totalSeats) {
+        this.totalSeats = totalSeats;
+        this.bookedSeats = 0;
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void startBooking() {
+        while (true) {
+            System.out.println("Welcome to the Bus Ticket Booking System");
+            System.out.println("Please choose an option:");
+            System.out.println("1. Admin Login");
+            System.out.println("2. User Booking");
+            System.out.println("3. Exit");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    adminLogin();
+                    break;
+                case 2:
+                    userBooking();
+                    break;
+                case 3:
+                    System.out.println("Thank you for using the Bus Ticket Booking System.");
+                    scanner.close(); // Close the scanner
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    private void adminLogin() {
+        System.out.println("Enter admin password:");
+        String password = scanner.next();
+
+        if (ADMIN_PASSWORD.equals(password)) {
+            adminMenu();
+        } else {
+            System.out.println("Incorrect password. Access denied.");
+        }
+    }
+
+    // ... (rest of the methods remain unchanged)
+
+    public static void main(String[] args) {
+        BusTicketBookingSystem bookingSystem = new BusTicketBookingSystem(50);
+        bookingSystem.startBooking();
+    }
+}
